@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>データ収集および予測処理トリガー</title>
+    <style>
+        body {
+            font-family: 'Yu Gothic', 'Meiryo', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .trigger-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        
+        .trigger-button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .trigger-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .trigger-button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .status.idle {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        .status.processing {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .status.completed {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .status.error {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .log {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            height: 200px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+        
+        .description {
+            color: #555;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>データ収集および予測処理トリガー (FR-001)</h1>
+        
+        <div class="description">
+            <p>このプロトタイプは、データ収集と予測処理を起動するトリガー機能を説明します。各ボタンをクリックして、異なるトリガーの動作を確認してください。</p>
+        </div>
+
+        <!-- データ収集トリガー -->
+        <div class="trigger-section">
+            <h2>📊 データ収集トリガー</h2>
+            <p class="description">
+                外部データソースからデータを収集するプロセスを起動します。センサーデータ、APIからのデータ、ファイルからのデータなど、様々なソースからの情報収集をシミュレートします。
+            </p>
+            <button class="trigger-button" onclick="triggerDataCollection()">データ収集開始</button>
+            <button class="trigger-button" onclick="scheduleDataCollection()">定期収集設定</button>
+            <div id="dataCollectionStatus" class="status idle">待機中</div>
+        </div>
+
+        <!-- 予測処理トリガー -->
+        <div class="trigger-section">
+            <h2>🔮 予測処理トリガー</h2>
+            <p class="description">
+                収集されたデータを基に機械学習モデルによる予測処理を実行します。リアルタイム予測、バッチ予測、カスタム予測など、異なる予測タイプをシミュレートします。
+            </p>
+            <button class="trigger-button" onclick="triggerPrediction()">リアルタイム予測</button>
+            <button class="trigger-button" onclick="triggerBatchPrediction()">バッチ予測</button>
+            <div id="predictionStatus" class="status idle">待機中</div>
+        </div>
+
+        <!-- 連携トリガー -->
+        <div class="trigger-section">
+            <h2>🔗 連携トリガー</h2>
+            <p class="description">
+                データ収集と予測処理を連携して実行します。データ収集完了後に自動的に予測処理を開始するワークフローをシミュレートします。
+            </p>
+            <button class="trigger-button" onclick="triggerWorkflow()">データ収集→予測連携</button>
+            <div id="workflowStatus" class="status idle">待機中</div>
+        </div>
+
+        <!-- ログ表示 -->
+        <div class="trigger-section">
+            <h2>📝 処理ログ</h2>
+            <div id="log" class="log">システム初期化完了...\n</div>
+            <button class="trigger-button" onclick="clearLog()">ログクリア</button>
+        </div>
+    </div>
+
+    <script src="triggers.js"></script>
+</body>
+</html>
